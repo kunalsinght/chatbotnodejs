@@ -17,5 +17,12 @@
   "bugs": {
     "url": "https://github.com/kunalsinght/chatbotnodejs/issues"
   },
-  "homepage": "https://github.com/kunalsinght/chatbotnodejs#readme"
+  "homepage": "https://github.com/kunalsinght/chatbotnodejs#readme",
+  "dependencies": {
+    "body-parser": "^1.20.3",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
+    "mongoose": "^8.7.1",
+    "pug": "^3.0.3"
+  }
 }
