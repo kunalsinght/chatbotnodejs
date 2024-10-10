@@ -1,0 +1,44 @@
+doctype html
+html
+  head
+    title Chatbot Interface
+    link(rel='stylesheet', href='/styles.css')
+  body
+    h1 Chat with Our Bot!
+
+    .chat-container
+      .chat-box
+        #messages
+
+      form#chatForm(action='/api/chatbot/message', method='post')
+        input(type='text', name='message', id='userMessage', placeholder='Type your message here…', required)
+        button(type='submit') Send
+
+    script.
+      // JavaScript for handling chat interactions
+      document.querySelector("#chatForm").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const userMessage = document.querySelector("#userMessage").value.trim();
+
+        if (userMessage) {
+          // Send the message to the server
+          const response = await fetch('/api/chatbot/message', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ message: userMessage })
+          });
+
+          const data = await response.json();
+
+          // Append user's message and bot's response to the chat
+          const messages = document.querySelector("#messages");
+          messages.innerHTML += `<p><strong>You:</strong> ${userMessage}</p>`;
+          messages.innerHTML += `<p><strong>Bot:</strong> ${data.message}</p>`;
+
+          // Scroll the chat box to the bottom after appending
+          messages.scrollTop = messages.scrollHeight;
+
+          // Clear the input field
+          document.querySelector("#userMessage").value = '';
+        }
+      });
